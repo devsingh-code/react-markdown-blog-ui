@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {Header,Container} from 'semantic-ui-react';
+import {Header,Container, Image} from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -10,7 +10,8 @@ const PostDetail = () =>{
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState(null)
     const {postSlug} = useParams()
-
+   
+    
     useEffect(() =>{
         async function fetchData(){
             setLoading(true);
@@ -29,14 +30,22 @@ const PostDetail = () =>{
     },[])
     return(
         <Container text>
-        <Header>{post && post.title}</Header>
         {error && <Message negative message={error} />}
         {loading && <Loader/>}
         {post && (
-            <p>
-                {post.content}
-            </p>
+            <div>
+            <Image src={post.thumbnail}/>
+            <Header as="h1">
+            {post.title}
+            </Header>
+            <small> Last Updated: {`${new Date(post.last_updated).toLocaleDateString()}`}</small>
+                <p>
+                    {post.content}
+                </p>
+           
+            </div>
         )}
+        
         </Container>
     )
 }
