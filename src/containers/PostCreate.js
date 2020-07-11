@@ -1,8 +1,10 @@
 import React, {useRef, useState} from 'react';
 import {Header, Button, Form } from 'semantic-ui-react';
+import {withRouter} from 'react-router-dom';
 import Message from '../components/Message';
 import axios from 'axios';
-import { history } from "../helpers";
+import {history} from "../helpers";
+import {api} from "../api";
 
 
 const PostCreate = () =>{
@@ -25,7 +27,7 @@ const PostCreate = () =>{
         formData.append("content", markdown)
         console.log(formData);
         axios
-            .post('http://127.0.0.1:8000/api/posts/create/', formData, {
+            .post(api.posts.create, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "Authorization": "Token 3c64107636c7c391802fb2e3c6a3c8a978fb7c33"
@@ -34,7 +36,7 @@ const PostCreate = () =>{
             .then(res => {
                 console.log(res)
                 setLoading(false);
-                history.push('/posts')
+                history.push('/')
                 // redirect back to the post list
             })
             .catch(err => {
@@ -95,4 +97,4 @@ const PostCreate = () =>{
 
 
 
-export default PostCreate;
+export default withRouter(PostCreate);
