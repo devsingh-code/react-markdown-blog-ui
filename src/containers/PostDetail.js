@@ -27,7 +27,7 @@ const PostDetail = () =>{
 
         }
         fetchData();
-    },[])
+    },[postSlug])
     return(
         <Container text>
         {error && <Message negative message={error} />}
