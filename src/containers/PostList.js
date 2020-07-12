@@ -26,7 +26,7 @@ const PostList = () =>{
                             <NavLink to ={`/posts/${post.slug}`}>
                                 <Item.Header as='h3'>{post.title}</Item.Header>
                             </NavLink>
-                            <Item.Description>{post.content}</Item.Description>
+                            <Item.Description >{post.content}</Item.Description>
                         </Item.Content>
                      </Item>
                      

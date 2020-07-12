@@ -14,6 +14,7 @@ const Navbar = () => (
         </Menu.Item>
        <NavLink to='/'><Menu.Item as='li'>Posts</Menu.Item></NavLink> 
        <NavLink to='/create'><Menu.Item as='li'>New Post</Menu.Item></NavLink> 
+       
       </Container>
     </Menu>
 

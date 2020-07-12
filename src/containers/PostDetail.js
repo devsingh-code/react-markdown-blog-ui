@@ -1,6 +1,8 @@
 import React from 'react';
 import {Header,Container, Image} from 'semantic-ui-react';
 
+
+
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import {useParams } from 'react-router-dom';

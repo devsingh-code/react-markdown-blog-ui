@@ -19,7 +19,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={withRouter(PostList)}/>
           <Route path="/create" component={withRouter(PostCreate)}/>
-          <Route path="/posts/:postSlug" component={withRouter(PostDetail)}/>
+          <Route exact path="/posts/:postSlug" component={withRouter(PostDetail)}/>
           <Route path="/posts/:postSlug/update" component={withRouter(PostUpdate)}/>
           <Route path="/posts/:postSlug/delete" component={withRouter(PostDelete)}/>
         </Switch>
