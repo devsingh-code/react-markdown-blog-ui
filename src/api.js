@@ -6,6 +6,8 @@ export const api = {
         retrieve: slug =>`${baseURL}/api/posts/${slug}/`,
         create:`${baseURL}/api/posts/create/`,
         update: slug =>`${baseURL}/api/posts/${slug}/update/`,
+        delete: slug =>`${baseURL}/api/posts/${slug}/delete/`,
+
     }
 
 }
