@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Header,Divider,Container, Image, Button,Modal} from 'semantic-ui-react';
-
+import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 
 import Loader from '../components/Loader';
@@ -9,6 +9,7 @@ import {useParams, withRouter} from 'react-router-dom';
 import {api} from '../api';
 import {useFetch} from '../helpers';
 import {history} from "../helpers";
+import Renderer from 'markdown-it/lib/renderer';
 
 
 const DeleteModal = ({title,postSlug,thumbnail}) => {
@@ -76,7 +77,18 @@ const DeleteModal = ({title,postSlug,thumbnail}) => {
         )
     }
 
+    const Blockquote =(props)=>{
+        return (
+            <blockquote>
+            {props.value ? props.value:props.children}
+            </blockquote>
+        )
 
+    }
+
+    const Renderers ={
+        blockquote: Blockquote
+    }
 
 const PostDetail = () =>{
     
@@ -95,9 +107,7 @@ const PostDetail = () =>{
             {data.title}
             </Header>
             <small> Last Updated: {`${new Date(data.last_updated).toLocaleDateString()}`}</small>
-                <p>
-                    {data.content}
-                </p>
+            <ReactMarkdown source={data.content} renderers = {Renderers}  />   
             <Divider/>
             <DeleteModal postSlug={postSlug} title = {data.title} thumbnail = {data.thumbnail}/>
             </div>
