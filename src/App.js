@@ -9,7 +9,8 @@ import Layout from './containers/Layout'
 import PostCreate from './containers/PostCreate'
 import PostUpdate from './containers/PostUpdate'
 import PostDelete from './containers/PostDelete'
-
+import Login from './containers/Login';
+import Signup from "./containers/Signup"
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
           <Route exact path="/posts/:postSlug" component={withRouter(PostDetail)}/>
           <Route path="/posts/:postSlug/update" component={withRouter(PostUpdate)}/>
           <Route path="/posts/:postSlug/delete" component={withRouter(PostDelete)}/>
+          <Route path='/login' component={withRouter(Login)} />
+          <Route path='/signup' component={withRouter(Signup)} />
         </Switch>
       </Layout>
    </Router>
