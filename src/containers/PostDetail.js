@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
 import {Header,Divider,Container, Image, Button,Modal} from 'semantic-ui-react';
 import ReactMarkdown from 'react-markdown';
-import axios from 'axios';
 
+import {authAxios} from '../services'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import {useParams, withRouter} from 'react-router-dom';
+import {useParams, withRouter, NavLink} from 'react-router-dom';
 import {api} from '../api';
 import {useFetch} from '../helpers';
 import {history} from "../helpers";
@@ -20,13 +20,8 @@ const DeleteModal = ({title,postSlug,thumbnail}) => {
        
         setLoading(true);
 
-        axios
-            .delete(api.posts.delete(postSlug),  {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": "Token a8df07ad37824b4c5fd9ac5d4bc13e424fa4fd8b"
-                }
-            })
+        authAxios
+            .delete(api.posts.delete(postSlug))
             .then(res => {
                 setLoading(false);
                 history.push('/')
@@ -97,7 +92,7 @@ const PostDetail = () =>{
     
     
     return(
-        <Container text>
+        <Container text style={{ paddingTop: 10, paddingBottom:10}}>
         {error && <Message negative message={error} />}
         {loading && <Loader/>}
         {data && (
@@ -109,7 +104,20 @@ const PostDetail = () =>{
             <small> Last Updated: {`${new Date(data.last_updated).toLocaleDateString()}`}</small>
             <ReactMarkdown source={data.content} renderers = {Renderers}  />   
             <Divider/>
-            <DeleteModal postSlug={postSlug} title = {data.title} thumbnail = {data.thumbnail}/>
+
+            {data.is_author &&(
+                <>
+                <NavLink to={`/posts/${postSlug}/update`}>
+                <Button color="orange">
+                    Update 
+                </Button>
+                </NavLink>
+                <DeleteModal postSlug={postSlug} title = {data.title} thumbnail = {data.thumbnail}/>
+                    </>
+            )}
+
+            
+
             </div>
         )}
         

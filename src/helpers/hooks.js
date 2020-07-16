@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react';
+import {authAxios, authenticationService} from '../services';
 import axios from 'axios';
-
 
 function useFetch(url, initialState=null){
 
@@ -12,7 +12,11 @@ function useFetch(url, initialState=null){
         async function fetchData(){
             setLoading(true);
             try{
-                const res = await axios.get(url);
+                let ax = axios
+                if (authenticationService.isAuthenticated){
+                    ax = authAxios
+                }
+                const res = await ax.get(url);
                 console.log(res.data);
                 setData(res.data)
                 setLoading(false)

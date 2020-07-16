@@ -1,15 +1,15 @@
 import React ,{useState, useRef}from 'react';
 import {Header, Button, Form,Image,Divider} from 'semantic-ui-react';
 import {useFetch, history} from '../helpers';
-import axios from 'axios';
+
 import MdEditor from 'react-markdown-editor-lite'
 import MarkdownIt from 'markdown-it'
 import 'react-markdown-editor-lite/lib/index.css';
-
+import {authAxios} from '../services'
 
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import {useParams, withRouter } from 'react-router-dom';
+import {useParams, withRouter, Redirect } from 'react-router-dom';
 import {api} from '../api';
 
 const PostUpdateForm = ({postSlug,initialTitle,initialContent, initialThumbnail}) =>{
@@ -35,11 +35,11 @@ const PostUpdateForm = ({postSlug,initialTitle,initialContent, initialThumbnail}
         }
         formData.append("title", title)
         formData.append("content", markdown)
-        axios
+        authAxios
             .put(api.posts.update(postSlug), formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "Authorization": "Token a8df07ad37824b4c5fd9ac5d4bc13e424fa4fd8b"
+                    
                 }
             })
             .then(res => {
@@ -100,6 +100,11 @@ const PostUpdateForm = ({postSlug,initialTitle,initialContent, initialThumbnail}
 const PostUpdate =() =>{
     const {postSlug} = useParams()
     const {data,loading,error} = useFetch(api.posts.retrieve(postSlug))
+
+    if(data && data.is_author === false){
+        return <Redirect to='/'/>
+    }
+
     return (
         <>
         {error && <Message negative message={error} />}
