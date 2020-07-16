@@ -11,7 +11,7 @@ import PostUpdate from './containers/PostUpdate'
 import PostDelete from './containers/PostDelete'
 import Login from './containers/Login';
 import Signup from "./containers/Signup"
-
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   return (
@@ -19,9 +19,9 @@ function App() {
     <Layout>
         <Switch>
           <Route exact path="/" component={withRouter(PostList)}/>
-          <Route path="/create" component={withRouter(PostCreate)}/>
+          <PrivateRoute path="/create" component={withRouter(PostCreate)}/>
           <Route exact path="/posts/:postSlug" component={withRouter(PostDetail)}/>
-          <Route path="/posts/:postSlug/update" component={withRouter(PostUpdate)}/>
+          <PrivateRoute path="/posts/:postSlug/update" component={withRouter(PostUpdate)}/>
           <Route path="/posts/:postSlug/delete" component={withRouter(PostDelete)}/>
           <Route path='/login' component={withRouter(Login)} />
           <Route path='/signup' component={withRouter(Signup)} />
