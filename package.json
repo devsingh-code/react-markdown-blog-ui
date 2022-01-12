@@ -9,7 +9,7 @@
     "@uiw/react-markdown-editor": "^1.4.3",
     "axios": "^0.19.2",
     "history": "^5.0.0",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^12.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
